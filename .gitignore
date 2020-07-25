@@ -1,3 +1,6 @@
+/ssl
+/jwtToken.txt
+
 # Logs
 logs
 *.log
