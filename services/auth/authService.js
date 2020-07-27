@@ -31,9 +31,18 @@ router.post('/login', (req, res) => {
         if (err) {
             return res.json(err)
         } else {
-            return res.json({success: response.getSuccess(), token: response.getToken()})
+            return res.cookie('token', response.getToken(), {
+                // secure: false, // set to true if your using https
+                httpOnly: true,
+              }).json({success: response.getSuccess()});
+            // return res.json({success: response.getSuccess(), token: response.getToken()})
         }
     });
+})
+
+// logout
+router.post('/logout', (req, res) => {
+    return res.clearCookie('token').json({success: "true"});
 })
 
 // Todo later

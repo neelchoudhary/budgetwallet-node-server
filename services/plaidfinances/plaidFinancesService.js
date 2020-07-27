@@ -22,9 +22,9 @@ router.post('/linkFinancialInstitution', (req, res) => {
 })
 
 // updateFinancialInstitution
-router.post('/updateFinancialInstitution', (req, res) => {
+router.post('/updateFinancialInstitution/:itemId', (req, res) => {
     const request = new UpdateFinancialInstitutionRequest();
-    request.setItemId(req.body.itemId);
+    request.setItemId(req.params.itemId);
 
     const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
     client.updateFinancialInstitution(request, function (err, response) {
@@ -37,9 +37,9 @@ router.post('/updateFinancialInstitution', (req, res) => {
 })
 
 // updateFinancialAccounts
-router.post('/updateFinancialAccounts', (req, res) => {
+router.post('/updateFinancialAccounts/:itemId', (req, res) => {
     const request = new UpdateFinancialAccountsRequest();
-    request.setItemId(req.body.itemId);
+    request.setItemId(req.params.itemId);
 
     const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
     client.updateFinancialAccounts(request, function (err, response) {

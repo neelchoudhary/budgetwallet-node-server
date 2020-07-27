@@ -11,7 +11,7 @@ router.get('/getFinancialInstitutions', (req, res) => {
     const client = new UserFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
     client.getFinancialInstitutions(request, function (err, response) {
         if (err) {
-            return res.json(err)
+            return res.status(400).json(err)
         } else {
             return res.json(response.getFinancialInstitutionsList())
         }
@@ -38,7 +38,7 @@ router.post('/toggleFinancialAccount', (req, res) => {
     const request = new ToggleFinancialAccountRequest();
     request.setItemId(req.body.itemId)
     request.setAccountId(req.body.accountId)
-    request.setSelected(req.body.selected)
+    request.setSelected(req.body.selected === 'true' ? true : false)
 
     const client = new UserFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
     client.toggleFinancialAccount(request, function (err, response) {

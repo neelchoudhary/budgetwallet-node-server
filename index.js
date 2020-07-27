@@ -1,22 +1,33 @@
 const express = require('express')
 const grpc = require('grpc');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const fs = require('fs');
 
 const app = express();
 
 app.use(express.json())
+app.use(cors())
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }))
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(
+    cors({
+        origin: [
+            'http://localhost:3000',
+        ],
+        credentials: true
+    })
+);
 
 app.use(function (req, res, next) {
-    const jwtToken = fs.readFileSync("./jwtToken.txt", "utf8");
     res.locals.grpcHost = "neelchoudhary.com:1443"
     if (req.originalUrl !== "/api/auth/login" && req.originalUrl !== "/api/auth/signup") {
+        // const jwtToken = fs.readFileSync("./jwtToken.txt", "utf8");
+        const jwtToken = req.cookies.token || '';
+        if (!jwtToken) {
+            return res.status(401).json('Auth error')
+        }
         const meta = new grpc.Metadata();
         meta.add('authorization', `Bearer ${jwtToken}`);
         const extra_creds = grpc.credentials.createFromMetadataGenerator(
