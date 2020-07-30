@@ -6,9 +6,10 @@ const { GetAccountDailySnapshotsRequest, GetAccountDailySnapshotsResponse, GetAc
 
 
 // getAccountDailySnapshots
-router.get('/getAccountDailySnapshots/:itemid/:accountid', (req, res) => {
+router.get('/getAccountDailySnapshots/:accountid', (req, res) => {
     const request = new GetAccountDailySnapshotsRequest();
-    request.setItemId(req.params.itemid);
+    // request.setItemId(req.params.itemid);
+    request.setItemId(0);
     request.setAccountId(req.params.accountid);
     const client = new DataProcessingServiceClient(res.locals.grpcHost, res.locals.creds);
     client.getAccountDailySnapshots(request, function (err, response) {
@@ -21,9 +22,10 @@ router.get('/getAccountDailySnapshots/:itemid/:accountid', (req, res) => {
 })
 
 // getAccountMonthlySnapshots
-router.get('/getAccountMonthlySnapshots/:itemid/:accountid', (req, res) => {
+router.get('/getAccountMonthlySnapshots/:accountid', (req, res) => {
     const request = new GetAccountMonthlySnapshotsRequest();
-    request.setItemId(req.params.itemid);
+    // request.setItemId(req.params.itemid);
+    request.setItemId(0);
     request.setAccountId(req.params.accountid);
     const client = new DataProcessingServiceClient(res.locals.grpcHost, res.locals.creds);
     client.getAccountMonthlySnapshots(request, function (err, response) {

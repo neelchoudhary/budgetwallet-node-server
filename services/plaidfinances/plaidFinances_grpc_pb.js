@@ -81,6 +81,17 @@ function deserialize_plaidfinances_LinkFinancialInstitutionResponse(buffer_arg) 
   return services_plaidfinances_plaidFinances_pb.LinkFinancialInstitutionResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_plaidfinances_LinkTokenResponse(arg) {
+  if (!(arg instanceof services_plaidfinances_plaidFinances_pb.LinkTokenResponse)) {
+    throw new Error('Expected argument of type plaidfinances.LinkTokenResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_plaidfinances_LinkTokenResponse(buffer_arg) {
+  return services_plaidfinances_plaidFinances_pb.LinkTokenResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_plaidfinances_RemoveFinancialInstitutionRequest(arg) {
   if (!(arg instanceof services_plaidfinances_plaidFinances_pb.RemoveFinancialInstitutionRequest)) {
     throw new Error('Expected argument of type plaidfinances.RemoveFinancialInstitutionRequest');
@@ -160,6 +171,17 @@ function deserialize_plaidfinances_UpdateFinancialInstitutionResponse(buffer_arg
 
 
 var PlaidFinancesServiceService = exports.PlaidFinancesServiceService = {
+  linkToken: {
+    path: '/plaidfinances.PlaidFinancesService/LinkToken',
+    requestStream: false,
+    responseStream: false,
+    requestType: services_plaidfinances_plaidFinances_pb.Empty,
+    responseType: services_plaidfinances_plaidFinances_pb.LinkTokenResponse,
+    requestSerialize: serialize_plaidfinances_Empty,
+    requestDeserialize: deserialize_plaidfinances_Empty,
+    responseSerialize: serialize_plaidfinances_LinkTokenResponse,
+    responseDeserialize: deserialize_plaidfinances_LinkTokenResponse,
+  },
   linkFinancialInstitution: {
     path: '/plaidfinances.PlaidFinancesService/LinkFinancialInstitution',
     requestStream: false,

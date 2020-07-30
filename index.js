@@ -20,8 +20,12 @@ app.use(
     })
 );
 
+const budgetWalletAPIServerPrd = "neelchoudhary.com:1443"
+// const budgetWalletAPIServerLocal = "localhost:50051"
+
+
 app.use(function (req, res, next) {
-    res.locals.grpcHost = "neelchoudhary.com:1443"
+    res.locals.grpcHost = budgetWalletAPIServerPrd
     if (req.originalUrl !== "/api/auth/login" && req.originalUrl !== "/api/auth/signup") {
         // const jwtToken = fs.readFileSync("./jwtToken.txt", "utf8");
         const jwtToken = req.cookies.token || '';

@@ -2,7 +2,22 @@ const express = require('express');
 const router = express.Router()
 
 const { PlaidFinancesServiceClient } = require('./plaidFinances_grpc_pb.js');
-const { LinkFinancialInstitutionRequest, UpdateFinancialInstitutionRequest, UpdateFinancialAccountsRequest, RemoveFinancialInstitutionRequest, AddHistoricalFinancialTransactionsRequest, AddFinancialTransactionsRequest } = require('./plaidFinances_pb.js');
+const { LinkFinancialInstitutionRequest, UpdateFinancialInstitutionRequest, UpdateFinancialAccountsRequest, RemoveFinancialInstitutionRequest, AddHistoricalFinancialTransactionsRequest, AddFinancialTransactionsRequest, Empty } = require('./plaidFinances_pb.js');
+
+
+// getLinkToken
+router.get('/getLinkToken', (req, res) => {
+    const request = new Empty();
+
+    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
+    client.linkToken(request, function (err, response) {
+        if (err) {
+            return res.json(err)
+        } else {
+            return res.json({linkToken: response.getLinktoken()})
+        }
+    });
+})
 
 
 // linkFinancialInstitution
