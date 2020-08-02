@@ -48,6 +48,28 @@ function deserialize_dataprocessing_GetAccountMonthlySnapshotsResponse(buffer_ar
   return services_dataprocessing_dataProcessing_pb.GetAccountMonthlySnapshotsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_dataprocessing_GetCategoryMonthlySnapshotsRequest(arg) {
+  if (!(arg instanceof services_dataprocessing_dataProcessing_pb.GetCategoryMonthlySnapshotsRequest)) {
+    throw new Error('Expected argument of type dataprocessing.GetCategoryMonthlySnapshotsRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_dataprocessing_GetCategoryMonthlySnapshotsRequest(buffer_arg) {
+  return services_dataprocessing_dataProcessing_pb.GetCategoryMonthlySnapshotsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_dataprocessing_GetCategoryMonthlySnapshotsResponse(arg) {
+  if (!(arg instanceof services_dataprocessing_dataProcessing_pb.GetCategoryMonthlySnapshotsResponse)) {
+    throw new Error('Expected argument of type dataprocessing.GetCategoryMonthlySnapshotsResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_dataprocessing_GetCategoryMonthlySnapshotsResponse(buffer_arg) {
+  return services_dataprocessing_dataProcessing_pb.GetCategoryMonthlySnapshotsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var DataProcessingServiceService = exports.DataProcessingServiceService = {
   getAccountDailySnapshots: {
@@ -71,6 +93,17 @@ var DataProcessingServiceService = exports.DataProcessingServiceService = {
     requestDeserialize: deserialize_dataprocessing_GetAccountMonthlySnapshotsRequest,
     responseSerialize: serialize_dataprocessing_GetAccountMonthlySnapshotsResponse,
     responseDeserialize: deserialize_dataprocessing_GetAccountMonthlySnapshotsResponse,
+  },
+  getCategoryMonthlySnapshots: {
+    path: '/dataprocessing.DataProcessingService/GetCategoryMonthlySnapshots',
+    requestStream: false,
+    responseStream: false,
+    requestType: services_dataprocessing_dataProcessing_pb.GetCategoryMonthlySnapshotsRequest,
+    responseType: services_dataprocessing_dataProcessing_pb.GetCategoryMonthlySnapshotsResponse,
+    requestSerialize: serialize_dataprocessing_GetCategoryMonthlySnapshotsRequest,
+    requestDeserialize: deserialize_dataprocessing_GetCategoryMonthlySnapshotsRequest,
+    responseSerialize: serialize_dataprocessing_GetCategoryMonthlySnapshotsResponse,
+    responseDeserialize: deserialize_dataprocessing_GetCategoryMonthlySnapshotsResponse,
   },
 };
 

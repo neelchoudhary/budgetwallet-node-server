@@ -5,6 +5,17 @@ var grpc = require('grpc');
 var services_userfinances_userFinances_pb = require('../../services/userfinances/userFinances_pb.js');
 var services_shared_shared_pb = require('../../services/shared/shared_pb.js');
 
+function serialize_userfinances_Empty(arg) {
+  if (!(arg instanceof services_userfinances_userFinances_pb.Empty)) {
+    throw new Error('Expected argument of type userfinances.Empty');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_userfinances_Empty(buffer_arg) {
+  return services_userfinances_userFinances_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_userfinances_GetFinancialAccountsRequest(arg) {
   if (!(arg instanceof services_userfinances_userFinances_pb.GetFinancialAccountsRequest)) {
     throw new Error('Expected argument of type userfinances.GetFinancialAccountsRequest');
@@ -47,17 +58,6 @@ function serialize_userfinances_GetFinancialInstitutionsResponse(arg) {
 
 function deserialize_userfinances_GetFinancialInstitutionsResponse(buffer_arg) {
   return services_userfinances_userFinances_pb.GetFinancialInstitutionsResponse.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_userfinances_GetFinancialTransactionsRequest(arg) {
-  if (!(arg instanceof services_userfinances_userFinances_pb.GetFinancialTransactionsRequest)) {
-    throw new Error('Expected argument of type userfinances.GetFinancialTransactionsRequest');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_userfinances_GetFinancialTransactionsRequest(buffer_arg) {
-  return services_userfinances_userFinances_pb.GetFinancialTransactionsRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_userfinances_GetFinancialTransactionsResponse(arg) {
@@ -132,10 +132,10 @@ var UserFinancesServiceService = exports.UserFinancesServiceService = {
     path: '/userfinances.UserFinancesService/GetFinancialTransactions',
     requestStream: false,
     responseStream: false,
-    requestType: services_userfinances_userFinances_pb.GetFinancialTransactionsRequest,
+    requestType: services_userfinances_userFinances_pb.Empty,
     responseType: services_userfinances_userFinances_pb.GetFinancialTransactionsResponse,
-    requestSerialize: serialize_userfinances_GetFinancialTransactionsRequest,
-    requestDeserialize: deserialize_userfinances_GetFinancialTransactionsRequest,
+    requestSerialize: serialize_userfinances_Empty,
+    requestDeserialize: deserialize_userfinances_Empty,
     responseSerialize: serialize_userfinances_GetFinancialTransactionsResponse,
     responseDeserialize: deserialize_userfinances_GetFinancialTransactionsResponse,
   },

@@ -51,9 +51,8 @@ router.post('/toggleFinancialAccount', (req, res) => {
 })
 
 // getFinancialAccounts
-router.get('/getFinancialTransactions/:id', (req, res) => {
-    const request = new GetFinancialTransactionsRequest();
-    request.setItemId(req.params.id)
+router.get('/getFinancialTransactions', (req, res) => {
+    const request = new Empty();
 
     const client = new UserFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
     client.getFinancialTransactions(request, function (err, response) {
