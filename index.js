@@ -3,6 +3,7 @@ const grpc = require('grpc');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
+const { reset } = require('nodemon');
 
 const app = express();
 
@@ -26,6 +27,12 @@ const budgetWalletAPIServerPrd = "neelchoudhary.com:1443"
 
 app.use(function (req, res, next) {
     res.locals.grpcHost = budgetWalletAPIServerPrd
+    // res.locals.grpcHost = budgetWalletAPIServerLocal
+    const options = {
+        'grpc.ssl_target_name_override': 'neelchoudhary.com',
+        'grpc.default_authority': 'neelchoudhary.com',
+    };
+    res.locals.options = options
     if (req.originalUrl !== "/api/auth/login" && req.originalUrl !== "/api/auth/signup") {
         // const jwtToken = fs.readFileSync("./jwtToken.txt", "utf8");
         const jwtToken = req.cookies.token || '';
@@ -41,11 +48,13 @@ app.use(function (req, res, next) {
         )
         const creds = grpc.credentials.combineChannelCredentials(
             grpc.credentials.createSsl(fs.readFileSync('ssl/chain.pem')),
+            // grpc.credentials.createSsl(fs.readFileSync('ssl/server.crt')),
             extra_creds,
         )
         res.locals.creds = creds;
     } else {
         const creds = grpc.credentials.createSsl(fs.readFileSync('ssl/chain.pem'));
+        // const creds = grpc.credentials.createSsl(fs.readFileSync('ssl/server.crt'));
         res.locals.creds = creds;
     }
     next();

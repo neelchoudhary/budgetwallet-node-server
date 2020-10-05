@@ -8,7 +8,7 @@ const { Empty, GetFinancialCategoriesResponse, FinancialCategory } = require('./
 // getFinancialCategories
 router.get('/getFinancialCategories', (req, res) => {
     const request = new Empty();
-    const client = new FinancialCategoryServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new FinancialCategoryServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.getFinancialCategories(request, function (err, response) {
         if (err) {
             return res.json(err)

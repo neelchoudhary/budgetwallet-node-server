@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { AuthServiceClient } = require('./auth_grpc_pb.js');
-const { LoginRequest, LoginResponse, LoginUser, SignupRequest, SignUpUser } = require('./auth_pb.js');
+const { LoginRequest, LoginUser, SignupRequest, SignUpUser } = require('./auth_pb.js');
 
 // login
 router.post('/login', (req, res) => {
@@ -11,22 +11,22 @@ router.post('/login', (req, res) => {
     loginUser.setEmail(req.body.email);
     loginUser.setPassword(req.body.password);
     request.setLoginuser(loginUser);
-    const client = new AuthServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new AuthServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.login(request, function (err, response) {
         if (err) {
             return res.json(err)
         } else {
             return res.cookie('token', response.getToken(), {
-                // secure: false, // set to true if your using https
+                // secure: false, // set to true if using https
                 httpOnly: true,
-              }).json({success: response.getSuccess()});
+            }).json({ success: response.getSuccess() });
         }
     });
 })
 
 // logout
 router.post('/logout', (req, res) => {
-    return res.clearCookie('token').json({success: "true"});
+    return res.clearCookie('token').json({ success: "true" });
 })
 
 // signup
@@ -37,12 +37,12 @@ router.post('/signup', (req, res) => {
     signupUser.setEmail(req.body.email);
     signupUser.setPassword(req.body.password)
     request.setSignupuser(signupUser);
-    const client = new AuthServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new AuthServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.signup(request, function (err, response) {
         if (err) {
             return res.json(err)
         } else {
-            return res.json({success: response.getSuccess()})
+            return res.json({ success: response.getSuccess() })
         }
     });
 })

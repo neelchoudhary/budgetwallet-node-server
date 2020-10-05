@@ -4,6 +4,17 @@
 var grpc = require('grpc');
 var services_dataprocessing_dataProcessing_pb = require('../../services/dataprocessing/dataProcessing_pb.js');
 
+function serialize_dataprocessing_Empty(arg) {
+  if (!(arg instanceof services_dataprocessing_dataProcessing_pb.Empty)) {
+    throw new Error('Expected argument of type dataprocessing.Empty');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_dataprocessing_Empty(buffer_arg) {
+  return services_dataprocessing_dataProcessing_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_dataprocessing_GetAccountDailySnapshotsRequest(arg) {
   if (!(arg instanceof services_dataprocessing_dataProcessing_pb.GetAccountDailySnapshotsRequest)) {
     throw new Error('Expected argument of type dataprocessing.GetAccountDailySnapshotsRequest');
@@ -70,6 +81,17 @@ function deserialize_dataprocessing_GetCategoryMonthlySnapshotsResponse(buffer_a
   return services_dataprocessing_dataProcessing_pb.GetCategoryMonthlySnapshotsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_dataprocessing_GetRecurringTransactionsResponse(arg) {
+  if (!(arg instanceof services_dataprocessing_dataProcessing_pb.GetRecurringTransactionsResponse)) {
+    throw new Error('Expected argument of type dataprocessing.GetRecurringTransactionsResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_dataprocessing_GetRecurringTransactionsResponse(buffer_arg) {
+  return services_dataprocessing_dataProcessing_pb.GetRecurringTransactionsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var DataProcessingServiceService = exports.DataProcessingServiceService = {
   getAccountDailySnapshots: {
@@ -104,6 +126,17 @@ var DataProcessingServiceService = exports.DataProcessingServiceService = {
     requestDeserialize: deserialize_dataprocessing_GetCategoryMonthlySnapshotsRequest,
     responseSerialize: serialize_dataprocessing_GetCategoryMonthlySnapshotsResponse,
     responseDeserialize: deserialize_dataprocessing_GetCategoryMonthlySnapshotsResponse,
+  },
+  getRecurringTransactions: {
+    path: '/dataprocessing.DataProcessingService/GetRecurringTransactions',
+    requestStream: false,
+    responseStream: false,
+    requestType: services_dataprocessing_dataProcessing_pb.Empty,
+    responseType: services_dataprocessing_dataProcessing_pb.GetRecurringTransactionsResponse,
+    requestSerialize: serialize_dataprocessing_Empty,
+    requestDeserialize: deserialize_dataprocessing_Empty,
+    responseSerialize: serialize_dataprocessing_GetRecurringTransactionsResponse,
+    responseDeserialize: deserialize_dataprocessing_GetRecurringTransactionsResponse,
   },
 };
 

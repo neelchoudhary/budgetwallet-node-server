@@ -9,12 +9,12 @@ const { LinkFinancialInstitutionRequest, UpdateFinancialInstitutionRequest, Upda
 router.get('/getLinkToken', (req, res) => {
     const request = new Empty();
 
-    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.linkToken(request, function (err, response) {
         if (err) {
             return res.json(err)
         } else {
-            return res.json({linkToken: response.getLinktoken()})
+            return res.json({ linkToken: response.getLinktoken() })
         }
     });
 })
@@ -26,7 +26,7 @@ router.post('/linkFinancialInstitution', (req, res) => {
     request.setPublicToken(req.body.publicToken);
     request.setPlaidInstitutionId(req.body.plaidInstitutionId);
 
-    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.linkFinancialInstitution(request, function (err, response) {
         if (err) {
             return res.json(err)
@@ -41,7 +41,7 @@ router.post('/updateFinancialInstitution/:itemId', (req, res) => {
     const request = new UpdateFinancialInstitutionRequest();
     request.setItemId(req.params.itemId);
 
-    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.updateFinancialInstitution(request, function (err, response) {
         if (err) {
             return res.json(err)
@@ -56,7 +56,7 @@ router.post('/updateFinancialAccounts/:itemId', (req, res) => {
     const request = new UpdateFinancialAccountsRequest();
     request.setItemId(req.params.itemId);
 
-    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.updateFinancialAccounts(request, function (err, response) {
         if (err) {
             return res.json(err)
@@ -70,8 +70,8 @@ router.post('/updateFinancialAccounts/:itemId', (req, res) => {
 router.post('/removeFinancialInstitution', (req, res) => {
     const request = new RemoveFinancialInstitutionRequest();
     request.setItemId(req.body.itemId);
-    
-    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
+
+    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.removeFinancialInstitution(request, function (err, response) {
         if (err) {
             return res.json(err)
@@ -88,7 +88,7 @@ router.post('/addHistoricalFinancialTransactions', (req, res) => {
     request.setItemId(req.body.itemId);
     request.setPlaidItemId(req.body.plaidItemId);
 
-    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.addHistoricalFinancialTransactions(request, function (err, response) {
         if (err) {
             return res.json(err)
@@ -105,7 +105,7 @@ router.post('/addFinancialTransactions', (req, res) => {
     request.setItemId(req.body.itemId);
     request.setPlaidItemId(req.body.plaidItemId);
 
-    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds);
+    const client = new PlaidFinancesServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
     client.addFinancialTransactions(request, function (err, response) {
         if (err) {
             return res.json(err)
