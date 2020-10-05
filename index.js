@@ -22,7 +22,7 @@ app.use(
     })
 );
 
-const budgetWalletAPIServerPrd = "https://neelchoudhary.com:1443"
+const budgetWalletAPIServerPrd = "neelchoudhary.com:1443"
 // const budgetWalletAPIServerLocal = "localhost:50051"
 
 
