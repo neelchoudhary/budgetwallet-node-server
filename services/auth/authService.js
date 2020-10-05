@@ -4,6 +4,9 @@ const router = express.Router();
 const { AuthServiceClient } = require('./auth_grpc_pb.js');
 const { LoginRequest, LoginUser, SignupRequest, SignUpUser } = require('./auth_pb.js');
 
+const { FinancialCategoryServiceClient } = require('../financialcategories/financialCategories_grpc_pb.js');
+const { Empty } = require('../financialcategories/financialCategories_pb.js');
+
 // login
 router.post('/login', (req, res) => {
     const request = new LoginRequest();
@@ -17,10 +20,9 @@ router.post('/login', (req, res) => {
             return res.json(err)
         } else {
             return res.cookie('token', response.getToken(), {
-                // secure: false, // set to true if using https
                 httpOnly: true,
                 sameSite: "lax",
-                secure: true,
+                // secure: true,
             }).json({ success: response.getSuccess() });
         }
     });
@@ -45,6 +47,20 @@ router.post('/signup', (req, res) => {
             return res.json(err)
         } else {
             return res.json({ success: response.getSuccess() })
+        }
+    });
+})
+
+
+// verifyAuth
+router.post('/verifyAuth', (req, res) => {
+    const request = new Empty();
+    const client = new FinancialCategoryServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
+    client.getFinancialCategories(request, function (err, response) {
+        if (err) {
+            return res.json({success: false})
+        } else {
+            return res.json({success: true})
         }
     });
 })
