@@ -19,7 +19,8 @@ router.post('/login', (req, res) => {
             return res.cookie('token', response.getToken(), {
                 // secure: false, // set to true if using https
                 httpOnly: true,
-                sameSite: "none"
+                sameSite: "lax",
+                secure: true,
             }).json({ success: response.getSuccess() });
         }
     });

@@ -16,12 +16,13 @@ app.use(
     cors({
         origin: [
             'http://localhost:3000',
+            'https://budgetwallet.neelchoudhary.com',
         ],
         credentials: true
     })
 );
 
-const budgetWalletAPIServerPrd = "neelchoudhary.com:1443"
+const budgetWalletAPIServerPrd = "https://neelchoudhary.com:1443"
 // const budgetWalletAPIServerLocal = "localhost:50051"
 
 
