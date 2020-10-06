@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const { AuthServiceClient } = require('./auth_grpc_pb.js');
-const { LoginRequest, LoginUser, SignupRequest, SignUpUser } = require('./auth_pb.js');
+const { LoginRequest, LoginUser, SignupRequest, SignUpUser, Empty } = require('./auth_pb.js');
 
-const { FinancialCategoryServiceClient } = require('../financialcategories/financialCategories_grpc_pb.js');
-const { Empty } = require('../financialcategories/financialCategories_pb.js');
+// const { FinancialCategoryServiceClient } = require('../financialcategories/financialCategories_grpc_pb.js');
+// const { Empty } = require('../financialcategories/financialCategories_pb.js');
 
 // login
 router.post('/login', (req, res) => {
@@ -55,12 +55,12 @@ router.post('/signup', (req, res) => {
 // verifyAuth
 router.post('/verifyAuth', (req, res) => {
     const request = new Empty();
-    const client = new FinancialCategoryServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
-    client.getFinancialCategories(request, function (err, response) {
+    const client = new AuthServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
+    client.verifyAuth(request, function (err, response) {
         if (err) {
             return res.json({success: false})
         } else {
-            return res.json({success: true})
+            return res.json({success: response.getSuccess()})
         }
     });
 })
