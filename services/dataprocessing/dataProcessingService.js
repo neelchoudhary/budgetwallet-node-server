@@ -60,5 +60,18 @@ router.get('/getRecurringTransactions', (req, res) => {
     });
 })
 
+// findRecurringTransactions
+router.get('/findRecurringTransactions', (req, res) => {
+    const request = new Empty();
+    const client = new DataProcessingServiceClient(res.locals.grpcHost, res.locals.creds, res.locals.options);
+    client.findRecurringTransactions(request, function (err, response) {
+        if (err) {
+            return res.json(err)
+        } else {
+            return res.json(response.getSuccess())
+        }
+    });
+})
+
 module.exports = router;
 
