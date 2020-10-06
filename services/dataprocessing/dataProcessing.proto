@@ -53,6 +53,11 @@ message RecurringTransaction {
     string is_recurring = 7;
 }
 
+message FindRecurringTransactionsResponse {
+    bool success = 1;
+}
+
+
 message GetRecurringTransactionsResponse {
     repeated RecurringTransaction recurring_transactions = 1;
     // repeated RecurringTransaction recurring_income = 2;
@@ -64,6 +69,7 @@ service DataProcessingService {
     rpc GetAccountDailySnapshots(GetAccountDailySnapshotsRequest) returns (GetAccountDailySnapshotsResponse) {};
     rpc GetAccountMonthlySnapshots(GetAccountMonthlySnapshotsRequest) returns (GetAccountMonthlySnapshotsResponse) {};
     rpc GetCategoryMonthlySnapshots(GetCategoryMonthlySnapshotsRequest) returns (GetCategoryMonthlySnapshotsResponse) {};
+    rpc FindRecurringTransactions(Empty) returns (FindRecurringTransactionsResponse) {};
     rpc GetRecurringTransactions(Empty) returns (GetRecurringTransactionsResponse) {};
     // get estimated monthly income
     // get monthly savings

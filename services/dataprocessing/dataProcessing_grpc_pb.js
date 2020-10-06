@@ -15,6 +15,17 @@ function deserialize_dataprocessing_Empty(buffer_arg) {
   return services_dataprocessing_dataProcessing_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_dataprocessing_FindRecurringTransactionsResponse(arg) {
+  if (!(arg instanceof services_dataprocessing_dataProcessing_pb.FindRecurringTransactionsResponse)) {
+    throw new Error('Expected argument of type dataprocessing.FindRecurringTransactionsResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_dataprocessing_FindRecurringTransactionsResponse(buffer_arg) {
+  return services_dataprocessing_dataProcessing_pb.FindRecurringTransactionsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_dataprocessing_GetAccountDailySnapshotsRequest(arg) {
   if (!(arg instanceof services_dataprocessing_dataProcessing_pb.GetAccountDailySnapshotsRequest)) {
     throw new Error('Expected argument of type dataprocessing.GetAccountDailySnapshotsRequest');
@@ -126,6 +137,17 @@ var DataProcessingServiceService = exports.DataProcessingServiceService = {
     requestDeserialize: deserialize_dataprocessing_GetCategoryMonthlySnapshotsRequest,
     responseSerialize: serialize_dataprocessing_GetCategoryMonthlySnapshotsResponse,
     responseDeserialize: deserialize_dataprocessing_GetCategoryMonthlySnapshotsResponse,
+  },
+  findRecurringTransactions: {
+    path: '/dataprocessing.DataProcessingService/FindRecurringTransactions',
+    requestStream: false,
+    responseStream: false,
+    requestType: services_dataprocessing_dataProcessing_pb.Empty,
+    responseType: services_dataprocessing_dataProcessing_pb.FindRecurringTransactionsResponse,
+    requestSerialize: serialize_dataprocessing_Empty,
+    requestDeserialize: deserialize_dataprocessing_Empty,
+    responseSerialize: serialize_dataprocessing_FindRecurringTransactionsResponse,
+    responseDeserialize: deserialize_dataprocessing_FindRecurringTransactionsResponse,
   },
   getRecurringTransactions: {
     path: '/dataprocessing.DataProcessingService/GetRecurringTransactions',
