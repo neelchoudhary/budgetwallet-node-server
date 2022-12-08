@@ -12,7 +12,7 @@
   "dependencies": {
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "google-protobuf": "^4.0.0-rc.2",
     "grpc": "^1.24.3",
     "grpc-tools": "^1.9.1"
